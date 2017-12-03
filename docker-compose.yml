@@ -1,0 +1,18 @@
+version: '3'
+services:
+  database:
+    image: mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "3306:3306"
+  app:
+    build: .
+    container_name: "flask_app"
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app:cached
+    depends_on:
+      - database
+    tty: true
